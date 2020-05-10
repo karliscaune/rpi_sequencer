@@ -1,0 +1,21 @@
+{
+  "name": "sekvenceris_software",
+  "version": "1.0.0",
+  "description": "Software for a homebrew sequencer",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run tsc --silent && node ./build/index.js",
+    "tsc": "tsc"
+  },
+  "keywords": [
+    "sequencer"
+  ],
+  "author": "Karlis Caune",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.7.7",
+    "lodash": "^4.17.15",
+    "ts-key-enum": "^2.0.2",
+    "typescript": "^3.8.3"
+  }
+}
