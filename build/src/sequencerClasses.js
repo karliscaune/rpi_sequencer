@@ -6,6 +6,7 @@ class UiState {
         this.currentStep = 1;
         this.currentPattern = 1;
         this.playingState = false;
+        this.shiftPressed = false;
     }
     sequenceUp() {
         if (this.currentSequence > 1) {
@@ -119,6 +120,7 @@ class Sequence {
         this.tempoDeviation = 0;
         this.mute = false;
         this.currentStepIndex = 1;
+        this.midiChannel = 1;
     }
     setStartOffset(deltaValue) {
         if (this.startOffset + deltaValue >= 0 &&
@@ -175,6 +177,16 @@ class Sequence {
     }
     step(index) {
         return this.steps[index - 1];
+    }
+    increaseMidiChannel() {
+        if (this.midiChannel < 99) {
+            this.midiChannel += 1;
+        }
+    }
+    decreaseMidiChannel() {
+        if (this.midiChannel > 1) {
+            this.midiChannel -= 1;
+        }
     }
 }
 exports.Sequence = Sequence;

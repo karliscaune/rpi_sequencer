@@ -26,6 +26,7 @@ function togglePlaying() {
 function processKeyEvent(key) {
     console.clear();
     if (key.ctrl) {
+        UIState.shiftPressed = true;
         switch (key.name) {
             case 'right':
                 patt.moveForward();
@@ -42,9 +43,16 @@ function processKeyEvent(key) {
             case 'u':
                 increaseTempo(10);
                 break;
+            case 'a':
+                patt.sequence(UIState.currentSequence).decreaseMidiChannel();
+                break;
+            case 's':
+                patt.sequence(UIState.currentSequence).increaseMidiChannel();
+                break;
         }
     }
     else {
+        UIState.shiftPressed = false;
         switch (key.name) {
             case 'left':
                 UIState.stepBackward();

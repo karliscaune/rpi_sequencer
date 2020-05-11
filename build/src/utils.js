@@ -57,6 +57,7 @@ function setStateInDisplayCell(grid, row, column, state) {
 }
 exports.setStateInDisplayCell = setStateInDisplayCell;
 function renderLcdContent(state, pattern) {
+    const midiChannel = expandString(addZeroes(pattern.sequence(state.currentSequence).midiChannel.toString()), 5);
     const baseNote = getNoteName(pattern.sequence(state.currentSequence).basePitch).toString();
     const velocity = pattern.sequence(state.currentSequence).step(state.currentStep).velocity.toString();
     const probablity = pattern.sequence(state.currentSequence).step(state.currentStep).stateProbability.toString();
@@ -66,7 +67,12 @@ function renderLcdContent(state, pattern) {
     const pitchDeviation = pitchDeviationInt > 0 ? '+' + pitchDeviationInt.toString() : pitchDeviationInt.toString();
     let firstRow = '';
     let secondRow = '';
-    firstRow = expandString(baseNote, 5) + expandString(velocity, 5) + expandString(probablity, 6);
+    if (state.shiftPressed) {
+        firstRow = midiChannel + expandString(velocity, 5) + expandString(probablity, 6);
+    }
+    else {
+        firstRow = expandString(baseNote, 5) + expandString(velocity, 5) + expandString(probablity, 6);
+    }
     secondRow = expandString(patternNumber, 5) + expandString(tempo, 5) + expandString(pitchDeviation, 6);
     return { firstRow, secondRow };
 }

@@ -8,11 +8,13 @@ export class UiState {
     currentStep: number;
     currentPattern: number;
     playingState: boolean;
+    shiftPressed: boolean;
     constructor() {
         this.currentSequence = 1;
         this.currentStep = 1;
         this.currentPattern = 1;
         this.playingState = false;
+        this.shiftPressed = false;
     }
 
     sequenceUp() {
@@ -150,6 +152,7 @@ export class Sequence {
     tempoDeviation: number;
     mute: boolean;
     currentStepIndex: number;
+    midiChannel: number;
 
     constructor() {
         this.length = 32;
@@ -160,6 +163,7 @@ export class Sequence {
         this.tempoDeviation = 0;
         this.mute = false;
         this.currentStepIndex = 1;
+        this.midiChannel = 1;
     }
 
     setStartOffset(deltaValue: number) {
@@ -223,6 +227,18 @@ export class Sequence {
 
     step(index: number) {
         return this.steps[index -1];
+    }
+
+    increaseMidiChannel() {
+        if(this.midiChannel < 99) {
+            this.midiChannel += 1;
+        }
+    }
+
+    decreaseMidiChannel() {
+        if(this.midiChannel > 1) {
+            this.midiChannel -= 1;
+        }
     }
 }
 
