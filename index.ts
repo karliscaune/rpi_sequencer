@@ -8,6 +8,15 @@ var easymidi = require('easymidi');
 var inputs = easymidi.getInputs();
 var outputs = easymidi.getOutputs();
 
+const midiOutput = 'UMC404HD 192k:UMC404HD 192k MIDI 1 20:0';
+
+let midiInMessage;
+
+var input = new easymidi.Input(midiOutput);
+input.on('noteon', function (msg) {
+  midiInMessage = msg;
+});
+
 const UIState = new UiState();
 let patt: Pattern;
 loadPattern();
@@ -131,8 +140,7 @@ function updateDisplay() {
   console.log('');
   console.log(renderLcdContent(UIState, patt).firstRow);
   console.log(renderLcdContent(UIState, patt).secondRow);
-  console.log(inputs);
-  console.log(outputs);
+  console.log(midiInMessage);
 }
 
 function decreaseTempo(increment) {

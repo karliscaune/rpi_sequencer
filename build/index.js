@@ -5,6 +5,15 @@ const utils_1 = require("./src/utils");
 const readline = require("readline");
 const fs = require("fs");
 var _ = require('lodash');
+var easymidi = require('easymidi');
+var inputs = easymidi.getInputs();
+var outputs = easymidi.getOutputs();
+const midiOutput = 'UMC404HD 192k:UMC404HD 192k MIDI 1 20:0';
+let midiInMessage;
+var input = new easymidi.Input(midiOutput);
+input.on('noteon', function (msg) {
+    midiInMessage = msg;
+});
 const UIState = new sequencerClasses_1.UiState();
 let patt;
 loadPattern();
@@ -154,6 +163,7 @@ function updateDisplay() {
     console.log('');
     console.log(utils_1.renderLcdContent(UIState, patt).firstRow);
     console.log(utils_1.renderLcdContent(UIState, patt).secondRow);
+    console.log(midiInMessage);
 }
 function decreaseTempo(increment) {
     patt.decreaseTempo(increment);
