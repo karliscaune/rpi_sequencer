@@ -6,20 +6,32 @@ const readline = require("readline");
 const fs = require("fs");
 var _ = require('lodash');
 var easymidi = require('easymidi');
-var inputs = easymidi.getInputs();
-var outputs = easymidi.getOutputs();
+// var inputs = easymidi.getInputs();
+// var outputs = easymidi.getOutputs();
 const midiOutput = 'UMC404HD 192k:UMC404HD 192k MIDI 1 20:0';
 let midiInMessage;
-var input = new easymidi.Input(midiOutput);
-input.on('noteon', function (msg) {
-    midiInMessage = msg;
-});
+var output = new easymidi.Output(midiOutput);
 const UIState = new sequencerClasses_1.UiState();
 let patt;
 loadPattern();
 const timer = new utils_1.Timer(function () {
     patt.moveForward();
     updateDisplay();
+    const note = patt.sequence(UIState.currentSequence).step(UIState.currentStep).getPitch;
+    const velocity = patt.sequence(UIState.currentSequence).step(UIState.currentStep).velocity;
+    const channel = patt.sequence(UIState.currentSequence).midiChannel;
+    output.send('noteon', {
+        note: note,
+        velocity: velocity,
+        channel: channel
+    });
+    setTimeout(() => {
+        output.send('noteoff', {
+            note: note,
+            velocity: velocity,
+            channel: channel
+        });
+    }, 300);
 }, 200);
 timer.stop();
 function togglePlaying() {
