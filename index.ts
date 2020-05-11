@@ -3,6 +3,10 @@ import { mockRenderUi, arduinoArrayFromPattern, renderLcdContent, Timer, bpmToMs
 import readline = require('readline');
 import fs = require('fs');
 var _ = require('lodash');
+var easymidi = require('easymidi');
+
+var inputs = easymidi.getInputs();
+var outputs = easymidi.getOutputs();
 
 const UIState = new UiState();
 let patt: Pattern;
@@ -127,6 +131,8 @@ function updateDisplay() {
   console.log('');
   console.log(renderLcdContent(UIState, patt).firstRow);
   console.log(renderLcdContent(UIState, patt).secondRow);
+  console.log(inputs);
+  console.log(outputs);
 }
 
 function decreaseTempo(increment) {
