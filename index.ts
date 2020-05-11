@@ -21,7 +21,7 @@ loadPattern();
 const timer = new Timer(function() {
   patt.moveForward();
   updateDisplay();
-  const note = patt.sequence(UIState.currentSequence).currentStep().pitch;
+  const note = patt.sequence(UIState.currentSequence).currentStep().getPitch;
   const velocity = patt.sequence(UIState.currentSequence).currentStep().velocity;
   const channel = patt.sequence(UIState.currentSequence).midiChannel;
   if(patt.sequence(UIState.currentSequence).currentStep().getState) {
