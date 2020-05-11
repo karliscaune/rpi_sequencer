@@ -92,6 +92,9 @@ function processKeyEvent(key) {
       break;
       case 'i': patt.goToStart();
       break;
+      case '1': patt.sequence(UIState.currentSequence).step(UIState.currentStep).decreaseLength();
+      break;
+      case '2': patt.sequence(UIState.currentSequence).step(UIState.currentStep).increaseLength();
     }
   }
   
@@ -114,7 +117,7 @@ function clearPattern() {
 function updateDisplay() {
   console.clear();
   let display = arduinoArrayFromPattern(patt, UIState);
-  mockRenderUi(display);
+  mockRenderUi(display, patt.sequence(UIState.currentSequence).step(UIState.currentStep).length);
   console.log('');
   console.log(renderLcdContent(UIState, patt).firstRow);
   console.log(renderLcdContent(UIState, patt).secondRow);

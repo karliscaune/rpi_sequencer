@@ -8,7 +8,10 @@ function getNoteName(midiNote) {
     return;
 }
 exports.getNoteName = getNoteName;
-function mockRenderUi(arduinoGrid) {
+function mockRenderUi(arduinoGrid, stepLength) {
+    // Render the note length
+    console.log('1 /', stepLength);
+    // Render step grid
     for (let i = 0; i < 8; i++) {
         let line = '';
         for (let k = 0; k < 32; k++) {

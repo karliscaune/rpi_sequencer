@@ -49,6 +49,7 @@ class Step {
         this.pitch = pitch;
         this.pitchDeviation = 0;
         this.stateProbability = 100;
+        this.length = 1;
     }
     toggle() {
         this.state = !this.state;
@@ -94,6 +95,16 @@ class Step {
     increaseProbablity() {
         if (this.stateProbability < 99) {
             this.stateProbability++;
+        }
+    }
+    increaseLength() {
+        if (this.length > 1) {
+            this.length = this.length / 2;
+        }
+    }
+    decreaseLength() {
+        if (this.length < 16) {
+            this.length = this.length * 2;
         }
     }
 }
