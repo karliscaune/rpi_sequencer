@@ -24,18 +24,20 @@ const timer = new Timer(function() {
   const note = patt.sequence(UIState.currentSequence).step(UIState.currentStep).getPitch;
   const velocity = patt.sequence(UIState.currentSequence).step(UIState.currentStep).velocity;
   const channel = patt.sequence(UIState.currentSequence).midiChannel;
-  output.send('noteon', {
-    note: note,
-    velocity: velocity,
-    channel: channel
-  });
-  setTimeout(() => {
-    output.send('noteoff', {
+  if(patt.sequence(UIState.currentSequence).step(UIState.currentStep).getState) {
+    output.send('noteon', {
       note: note,
       velocity: velocity,
       channel: channel
     });
-  }, 300);
+    setTimeout(() => {
+      output.send('noteoff', {
+        note: note,
+        velocity: velocity,
+        channel: channel
+      });
+    }, 300);
+  }
 }, 200);
 
 timer.stop();
