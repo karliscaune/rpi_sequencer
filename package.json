@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/node": "^13.7.7",
     "easymidi": "^1.1.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "ts-key-enum": "^2.0.2",
     "typescript": "^3.8.3"
   }
